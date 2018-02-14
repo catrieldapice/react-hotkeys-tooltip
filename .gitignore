@@ -1,0 +1,16 @@
+# Project files
+.idea/*
+
+# Dependency directory
+node_modules
+
+# Optional npm cache directory
+.npm
+
+# Production directory
+dist
+
+# Coverage directory
+coverage
+
+npm-debug.log
