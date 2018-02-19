@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
 import { HotKeys } from 'react-hotkeys';
 import Modal from 'react-responsive-modal';
 
@@ -7,23 +6,23 @@ import { withRouter } from 'react-router';
 
 import { PropTypes } from 'prop-types';
 
-import './App.css';
+import MainHeader from './components/MainHeader';
 
 const shortcurts = {
   showHelpPopup: '?',
   moveToSecondPage: '2',
-  console: 'ctrl+1',
+  console: 'ctrl+1'
 };
 
 class SecondPage extends Component {
   state = {
-    isHelpOpen: false,
+    isHelpOpen: false
   };
 
   static propTypes = {
     match: PropTypes.object.isRequired,
     location: PropTypes.object.isRequired,
-    history: PropTypes.object.isRequired,
+    history: PropTypes.object.isRequired
   };
 
   focus = () => {
@@ -34,22 +33,23 @@ class SecondPage extends Component {
   handlers = {
     showHelpPopup: () => this.setState({ isHelpOpen: !this.state.isHelpOpen }),
     moveToSecondPage: () => this.props.history.push('/'),
-    console: () => this.focus(),
+    console: () => this.focus()
   };
 
   render() {
     return (
       <div className="App">
-        <HotKeys keyMap={shortcurts} handlers={this.handlers} attach={window} focused={true} />
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h1 className="App-title" tabIndex={0} ref={c => (this.h1 = c)}>
-            Welcome to React
-          </h1>
-        </header>
+        <HotKeys
+          keyMap={shortcurts}
+          handlers={this.handlers}
+          attach={window}
+          focused={true}
+        />
+        <MainHeader />
         <p className="App-intro">
           To get started, edit <code>src/App.js</code> and save to reload.
         </p>
+        <div>Hello, Cato</div>
         <Modal
           open={this.state.isHelpOpen}
           onClose={() => this.setState({ isHelpOpen: false })}

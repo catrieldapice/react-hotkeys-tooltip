@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
+
 import { HotKeys } from 'react-hotkeys';
 import Modal from 'react-responsive-modal';
 
@@ -9,43 +9,56 @@ import { PropTypes } from 'prop-types';
 
 import SecondPage from './SecondPage';
 
-import './App.css';
+import MainHeader from './components/MainHeader';
+import Box from './components/Box';
+import Text from './components/Text';
 
 const shortcurts = {
   showHelpPopup: '?',
   moveToSecondPage: '2',
-  console: 'ctrl+1',
+  boxFocus: 'ctrl+2',
+  textFocus: 'ctrl+3',
+  console: 'ctrl+1'
 };
 
 class App extends Component {
   state = {
-    isHelpOpen: false,
+    isHelpOpen: false
   };
 
   static propTypes = {
     match: PropTypes.object.isRequired,
     location: PropTypes.object.isRequired,
-    history: PropTypes.object.isRequired,
+    history: PropTypes.object.isRequired
+  };
+
+  focus = () => {
+    this.text.focus();
   };
 
   handlers = {
     showHelpPopup: () => this.setState({ isHelpOpen: !this.state.isHelpOpen }),
     moveToSecondPage: () => this.props.history.push('/secondPage'),
-    console: () => console.log('asdas'),
+    boxFocus: () => this.focus(),
+    textFocus: () => this.focus(),
+    console: () => console.log('console log')
   };
 
   render() {
     return (
       <div className="App">
-        <HotKeys keyMap={shortcurts} handlers={this.handlers} attach={window} focused={true}>
-          <header className="App-header">
-            <img src={logo} className="App-logo" alt="logo" />
-            <h1 className="App-title">Welcome to React</h1>
-          </header>
+        <HotKeys
+          keyMap={shortcurts}
+          handlers={this.handlers}
+          attach={window}
+          focused={true}
+        >
+          <MainHeader />
         </HotKeys>
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
+        <Text textRef={c => (this.text = c)} />
+        <div>
+          <Box boxRef={c => (this.box = c)} />
+        </div>
         <Modal
           open={this.state.isHelpOpen}
           onClose={() => this.setState({ isHelpOpen: false })}
